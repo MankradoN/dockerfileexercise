@@ -5,7 +5,6 @@ pipeline {
         stage('Install docker on the jenkins server') {
             steps {
                 sh "Sudo curl https://get.docker.com | sudo bash"
-                sh "./build.sh"
             }
         }
         stage('Add jenkins to the docker group') {
@@ -22,7 +21,8 @@ pipeline {
         }
         stage('run docker') {
             steps {
-                sh "docker rm -f $(docker ps -aq)"
+                sh "cd Task1"
+                sh "docker rm -f $(docker ps -aq) || true"
                 sh "docker-compose up -d "
             }
         }
