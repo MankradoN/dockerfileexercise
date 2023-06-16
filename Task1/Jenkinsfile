@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Install docker on the jenkins server') {
+            steps {
+                sh "Sudo curl https://get.docker.com | sudo bash"
+                sh "./build.sh"
+            }
+        }
+        stage('Add jenkins to the docker group') {
+            steps {
+               sh "Sudo usermod -aG docker jenkins"
+               sh "sudo reboot"
+            }
+        }
+        stage('Add jenkins to the docker group') {
+            steps {
+               sh "git clone"
+               sh "sudo reboot"
+            }
+        }
+        stage('run docker') {
+            steps {
+                sh "docker rm -f $(docker ps -aq)"
+                sh "docker-compose up -d "
+            }
+        }
+    }
+}
